@@ -5,8 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tall and Pretty</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #fdf6f9;
+    }
+
+    .container {
+      max-width: 90vw;
+      width: 400px;
+      margin: 160px auto 40px;
+      padding: 30px 20px 20px; /* more padding for timer */
+      background-color: rgba(255, 192, 203, 0.85);
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: hotpink;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .timer-box {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-align: center;
+      font-family: sans-serif;
+      color: #a63a78;
+      font-size: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .timer-box h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-family: inherit;
+    }
+
+    .timer-box #timer {
+      margin-top: 4px;
+      font-family: Georgia, serif;
+      font-size: 1.3rem;
+      color: #444;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        width: 90vw;
+        margin: 180px auto 40px;
+      }
+
+      .timer-box {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+      }
+
+      .timer-box #timer {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="timer-box">
+    <h3>Bubbling since</h3>
+    <div id="timer"></div>
+  </div>
+
   <div class="container" id="formPage">
     <h2>What's Bubbling in Tall & Pretty’s Mind Today? 🌹👑💸</h2>
     <input type="text" id="title" placeholder="Title" required />
@@ -14,16 +100,25 @@
     <label>Mood:</label>
     <select id="mood">
       <option>😡</option>
-      <option>😑</option>
       <option>😤</option>
       <option>😭</option>
       <option>😒</option>
+      <option>😑</option>
+      <option>😌</option>
+      <option>😀</option>
+      <option>😁</option>
+      <option>😚</option>
+      <option>😘</option>
+      <option>🥰</option>
     </select>
     <label>Severity:</label>
     <select id="severity">
       <option>Fine. But I'm not happy about it 😤</option>
       <option>A mango salad would fix this 😈</option>
-      <option>Brb, recalculating life choices 🮢</option>
+      <option>My words = Your command🛐</option>
+      <option>Only am allowed to do that 😑</option>
+      <option>I’m in charge here, so obey me!🛐</option>
+      <option>Brb, recalculating life choices 🧲</option>
       <option>Okay, but remember this moment forever 🧠📈</option>
       <option>Silent treatment activated 🔕</option>
     </select>
@@ -100,6 +195,30 @@
       document.getElementById('historyPage').classList.add('hidden');
       document.getElementById('formPage').classList.remove('hidden');
     }
+
+    function updateTimer() {
+      const start = new Date('January 7, 2025 03:00:00').getTime();
+      const now = new Date().getTime();
+      let diff = now - start;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff %= (1000 * 60 * 60 * 24);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff %= (1000 * 60 * 60);
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff %= (1000 * 60);
+      const seconds = Math.floor(diff / 1000);
+
+      document.getElementById("timer").innerHTML = `
+        <span>${days}</span> days
+        <span>${hours}</span> hours
+        <span>${minutes}</span> minutes
+        <span>${seconds}</span> seconds
+      `;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
   </script>
 </body>
 </html>
